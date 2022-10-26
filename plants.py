@@ -6,6 +6,9 @@ Created on Wed Oct 26 20:55:41 2022
 """
 
 class plants:
+    """
+    Classe d'objects à deux attribus, la qualité q entre 0 et 1 et un couple d'entiers pour les positions des plantes dans la grille.
+    """
     def __init__(self,quality,position):
         self.quality=quality
         self.position=position

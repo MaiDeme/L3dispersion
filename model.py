@@ -36,8 +36,8 @@ def affiche_grille(grille):
 def generate_grille(L):
     """
     fonction qui génère un np.array à deux dimensions rempli des objects 'plants'
-    input: La longueur voulue
-    output: Le np.array rempli
+    input: L, la longueur voulue
+    output: grille, le np.array rempli
     """
     grille=np.ndarray((L,L),dtype=plants)
     for i in range(L):
