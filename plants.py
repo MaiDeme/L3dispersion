@@ -6,7 +6,6 @@ Created on Wed Oct 26 20:55:41 2022
 """
 
 class plants:
-    
     def __init__(self,quality,position):
         self.quality=quality
         self.position=position
