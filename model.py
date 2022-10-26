@@ -21,7 +21,6 @@ def non_dispersing():
 def growth():
     return None
 
-
 def generate_grille(size):
     L=size
     #grille=np.zeros((L,L))
@@ -35,11 +34,8 @@ def generate_grille(size):
 
     plt.savefig('figure.png') #sauvegarder les tracés dans un .png
     plt.show()
-    
-    return None
 
 def main():
     generate_grille(10)
-    return None
 
 main()
