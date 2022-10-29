@@ -4,9 +4,6 @@ Created on Wed Oct 26 20:55:41 2022
 
 @author: maiwe
 """
-alpha = float(input("Entrez la proportion de graines dispersées: "))
-N = int(input("Entrez le nombre de graines par plante: "))
-L = int(input("Entrez longueur de la grille: "))
 
 
 class plants:
@@ -30,5 +27,3 @@ class plants:
     def position(self, newposition):
         self.position = newposition
 
-    def dispersing(self,):
-        return alpha*N
