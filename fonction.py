@@ -29,7 +29,7 @@ def generate_grille(L):
     input: L, la longueur voulue
     output: grille, le np.array rempli
     """
-    grille=np.ndarray((L,L),dtype=list(plants))
+    grille=np.ndarray((L,L),dtype=list)
     for i in range(L):
         for j in range(L):
             grille[i,j]=[plants(1,(i,j))]
