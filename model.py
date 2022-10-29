@@ -9,16 +9,6 @@ import matplotlib.image as mpimg
 from matplotlib import colors as c
 from plants import plants
 
-##dispersing rules
-def dispersing():
-    return None
-
-def non_dispersing():
-    return None
-
-def growth():
-    return None
-
 
 def affiche_grille(grille):
     """
@@ -39,10 +29,10 @@ def generate_grille(L):
     input: L, la longueur voulue
     output: grille, le np.array rempli
     """
-    grille=np.ndarray((L,L),dtype=plants)
+    grille=np.ndarray((L,L),dtype=list(plants))
     for i in range(L):
         for j in range(L):
-            grille[i,j]=plants(1,(i,j))
+            grille[i,j]=[plants(1,(i,j))]
     #grille=np.random.randint(2, size=(L,L))   #la ligne pour générer une grille random
     return grille
 
