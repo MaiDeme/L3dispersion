@@ -4,8 +4,6 @@ from math import *
 from random import *
 import matplotlib.pyplot as plt 
 import numpy as np
-from PIL import Image
-import matplotlib.image as mpimg
 from matplotlib import colors as c
 from plants import plants
 
