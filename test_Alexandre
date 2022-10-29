@@ -3,9 +3,9 @@ import random
 import numpy.random as rd
 
 
-alpha=float(input("Entrer la proportion de graines dispersées: "))
-N=int(input("Entrer le nombre de graines par plante: "))
-L=int(input("Entrer longueur de la grille: "))
+alpha=float(input("Entrez la proportion de graines dispersées: "))
+N=int(input("Entrez le nombre de graines par plante: "))
+L=int(input("Entrez longueur de la grille: "))
 
 
 
