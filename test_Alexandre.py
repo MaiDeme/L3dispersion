@@ -104,5 +104,5 @@ for i in range(len(g)):
     print( )
 
 
-
+#test sélection
        
