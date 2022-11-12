@@ -15,7 +15,7 @@ def main():
     alpha=0     #proportions de graines dispersées
     N=3         #nombre de graines
     L=10        #taille du maillage
-    delta=0.1
+    delta=0
     p_ext=0.2  
     g1=generate_grille(5) #on genere la grille de départ remplie des plantes de quality 1
     while i <d: #condition fixée pour l'instant le temps de comprendre tout
@@ -28,8 +28,9 @@ def main():
 
         #
 
+    g=selection(g1,delta)
 
-    return None
+    return g
 
 
 main()
