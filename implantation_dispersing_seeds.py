@@ -40,6 +40,6 @@ def implantation_disp(p,L,g,alpha,proba_installation):
         j=rd.binomial(1, proba_installation,) #simule la proba de s'installé sur une case
         
         if j==1:
-            g[x][y].append(plants(1,[x,y])) #si la graine s'installe alors on place un 1 sur la case correspondante, il peut y avoir plusieurs 1 sur une case
+            g[x][y].append(plants(1,[x,y])) #si la graine s'installe alors on place une instance dela claas plants dans la case correspondante, il peut y avoir plusieurs 1 sur une case
 
     return g
