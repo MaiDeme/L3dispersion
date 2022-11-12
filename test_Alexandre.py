@@ -26,8 +26,6 @@ class plants:
     def quality(self,delta):
         self.quality=(1-delta)*self.quality
     
-    def dispersing(self,):
-        return  alpha*N 
 
 
 
@@ -47,20 +45,51 @@ def grille_inter(L):
 
 
 
-def implantation_disp(p,L,g):
+def implantation_disp(p,L,g,alpha):
+    """
+    remplie la grille avec les graines dispersées.
+    paramètres:
+    p : la plante (l'instance de la classe plants étudiée)
+    L : la longeur de la grille
+    g : une grille de taille L*L
+    alpha : proportion de graines dispersées
+
+    return:
+    la grille remplie des plantes (dispersées) implantées
+
+    """        
+    nb_g=int(alpha*N)# récupère le nombre de graines dispersées de la plante
+
+    for i in np.arange(nb_g): #boucle qui modélisez la dispersion aléatoire
+        x= random.randint(0, L-1) #choisis aléatoirement une ligne sur la grille
+        y= random.randint(0, L-1) #choisis aléatoirement une colonne sur la grille
+        j=rd.binomial(1, 0.8
+        ,) #simule la proba de s'installé sur une case, attention la proba est fixé c'est à modifié.
+        
+        if j==1:
+            g[x][y].append(plants(1,[x,y])) #si la graine s'installe alors on place un 1 sur la case correspondante, il peut y avoir plusieurs 1 sur une case
+
+    return g
+def generate_plants(L):
+    """
+    génère autant d'instance de la class plants que de case sur la grille.
+    paramètre:
+    L : taille de la grille
     
-        nb_g=p.dispersing()# récupère le nombre de graines dispersées
+    """        
+    liste=[]
 
-        for i in np.arange(nb_g):
-           x= random.randint(0, L-1) #choisis aléatoirement la ligne sur la grille
-           y= random.randint(0, L-1) #choisis aléatoirement la colonne sur la grille
-           j=rd.binomial(1, 0.4,) #simule la proba de s'installé sur une case, attention la proba est fixé c'est à modifié.
+    for i in np.arange(L):
+        for j in np.arange(L):       
+            liste.append(plants(1,[i,j])) #ajoute à la liste l'instance de la class plants asociée à la position [i][j]
+    return liste
 
-           
-           if j==1:
-                g[x][y].append(1) #si la graine s'installe alors on place un 1 sur la case correspondante, il peut y avoir plusieurs 1 sur une case
 
-        return g
+
+print(generate_plants(L))
+for e in generate_plants(L):
+    print(e.get_position())
+
 
 
 
@@ -73,4 +102,7 @@ for i in range(len(g)):
     for j in range(len(g[i])):
         print(g[i][j], end=' ')
     print( )
-    
+
+
+
+       
