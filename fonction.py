@@ -11,6 +11,7 @@ import numpy.random as rd
 def affiche_grille_graines(grille):
     """
     Pour afficher la grille prise en argument mais je pense que ça sera utile que pour les test
+    PAS AU POINT
     """
     L = grille.size
     fig, ax = plt.subplots(1, 1)
@@ -25,6 +26,7 @@ def affiche_grille_graines(grille):
 def affiche_grille_plantes(grille):
     """
     Pour afficher la grille prise en argument mais je pense que ça sera utile que pour les test
+    PAS AU POINT
     """
     L = len(grille)
     fig, ax = plt.subplots(1, 1)
@@ -51,6 +53,12 @@ def generate_grille(L):
 
 
 def selection(grille, delta):
+    """
+    selection dans chaque cases parmi la liste des graines cell qui va pousser et donner une plante
+    input: grille, la grille qui contient les listes des graines
+    ouput: g la grille avec les instances de plantes qui ont poussées
+
+    """
     L = grille.size
     g = np.zeros((L,L))
     for i in range(L):
@@ -58,7 +66,7 @@ def selection(grille, delta):
             g[i][j] = np.random.choice(grille[i][j]) #on choisis la graine parmi la liste
             if g[i][j].get_quality == 1: #il faudrait trouver un test pour determiner si la graine est issu d'autofecondation
                 g[i][j].quality(delta) #on applique le penalité liée à l'autofecondation
-    return grille
+    return g
 
 
 def implantation_disp(L, g, alpha, proba_installation, N):
