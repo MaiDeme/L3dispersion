@@ -21,9 +21,9 @@ class plants:
     def get_quality(self):
         return self.quality
 
-    def quality(self, delta):
+    def newquality(self, delta):
         self.quality = (1-delta)*self.quality
 
-    def position(self, newposition):
+    def newposition(self, newposition):
         self.position = newposition
 
