@@ -64,8 +64,8 @@ def selection(grille, delta):
     for i in range(L):
         for j in range(L):
             g[i][j] = np.random.choice(grille[i][j]) #on choisis la graine parmi la liste
-            if g[i][j].get_quality == 1: #il faudrait trouver un test pour determiner si la graine est issu d'autofecondation
-                g[i][j].quality(delta) #on applique le penalité liée à l'autofecondation
+            if g[i][j].get_quality() == 1: #il faudrait trouver un test pour determiner si la graine est issu d'autofecondation
+                g[i][j].newquality(delta) #on applique le penalité liée à l'autofecondation
     return g
 
 
@@ -81,7 +81,6 @@ def implantation_disp(L, g, alpha, proba_installation, N):
 
     return:
     la grille remplie des plantes (dispersées) implantées (liste de plantes dans chaques cases)
-
     """
     nb_g = int(alpha*N)  # le nombre de graines dispersées de la plante
 
