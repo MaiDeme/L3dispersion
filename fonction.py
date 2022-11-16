@@ -19,7 +19,7 @@ def affiche_grille_graines(grille):
     cmap = c.ListedColormap(colorarray)
     a = ax.pcolormesh(grille, edgecolors='k', linewidths=2,
                       facecolors=['red', 'white'], cmap=cmap)
-    ax.set_title(f"grille avec repartiiosn des graines")
+    ax.set_title(f"grille avec repartions des graines")
     plt.show()
 
 
