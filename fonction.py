@@ -60,10 +60,11 @@ def selection(grille):
 
     """
     L = grille.size
-    g = np.zeros((L,L))
+    g = np.zeros((L, L))
     for i in range(L):
         for j in range(L):
-            g[i][j] = np.random.choice(grille[i][j]) #on choisis la graine parmi la liste
+            # on choisis la graine parmi la liste
+            g[i][j] = np.random.choice(grille[i][j])
     return g
 
 

@@ -2,7 +2,8 @@ import numpy as np
 import random
 import numpy.random as rd
 
-def reproduction_plante(plante,N):
+
+def reproduction_plante(plante, N):
     '''
     renvoie le nombre de graines fixées pour une plante
     parametre:
@@ -11,5 +12,5 @@ def reproduction_plante(plante,N):
     return
     le nombre de graines dispersées
     '''
-    disp_seed=rd.binomial(N,plante.get_alpha,)
+    disp_seed = rd.binomial(N, plante.get_alpha,)
     return disp_seed

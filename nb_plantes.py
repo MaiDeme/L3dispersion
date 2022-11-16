@@ -2,7 +2,8 @@ import numpy as np
 import random
 import numpy.random as rd
 
-def nb_plants(grille):
+
+def nb_plants(g):
     '''
     compte le nombre de plantes sur la grille
     parametre
@@ -10,10 +11,10 @@ def nb_plants(grille):
     return
     le nombre de plants
     '''
-    #compte le nombre de plantes sur la grille 
-    nb_plants=0  
+    # compte le nombre de plantes sur la grille
+    nb_plants = 0
     for i in np.arange(g.size()):
         for j in np.arange(g.size()):
-            if g[i][j]!=[]:
-                nb_plants+=1
+            if g[i][j] != []:
+                nb_plants += 1
     return nb_plants
