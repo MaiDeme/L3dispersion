@@ -10,25 +10,35 @@ from fonction import *
 
 
 def main():
-    d = 5  # le nombre de générations
+    d = 1  # le nombre de générations
     i = 0
     alpha = 0  # proportions de graines dispersées
     N = 3  # nombre de graines
-    L = 10  # taille du maillage
+    L = 5  # taille du maillage
     delta = 0
     p_ext = 0.2
-    # on genere la grille de départ remplie des plantes de quality 1
-    g1 = generate_grille(5)
-    while i < d:  # condition fixée pour l'instant le temps de comprendre tout
-        # on genre  une grille vide pour y mettre les graines
-        g2 = np.zeros((5, 5))
-        # dispersion (pour l'instant juste les graines dispersées) +implantation
-        g2 = implantation_disp(L, g2, alpha, p_ext, N)
-        # donc la on a la grille avec les graines dipersées ET implantés
-
-        g = selection(g)
+    p_int = 0.2
+    # on genere la grille de départ remplie des plantes de quality 1 avec alpha fixé
+    g = generate_grille(L, alpha)
+    while i <= d:  # condition fixée pour l'instant les générations
+        # on genere  une grille vide pour y mettre les graines
+        g_graines = grille_vide(L)
+        # graines dispersées + implantation
+        for i in range(L):
+            for j in range(L):
+                if g[i][j] != []:
+                    sucessBino = rd.binomial(N, alpha)
+                    g_graines = dispersandimplementation_fixes(
+                        g[i][j][0], 1-sucessBino, N, L, g_graines, delta, p_int)  # graines fixées
+                    g_graines = implantation_disp(
+                        g[i][j][0], N, g_graines, p_ext)  # graines dispersées
+        #g_graines = selection(g_graines)
+        print(g_graines)
+        i += 1
 
     return g
 
-
 main()
+
+
+
