@@ -55,7 +55,7 @@ def generate_grille(L):
 def selection(grille, delta):
     """
     selection dans chaque cases parmi la liste des graines cell qui va pousser et donner une plante
-    input: grille, la grille qui contient les listes des graines
+    input: grille, la grille qui contient les listes des graines DEJA implanter
     ouput: g la grille avec les instances de plantes qui ont poussées
 
     """
@@ -64,8 +64,6 @@ def selection(grille, delta):
     for i in range(L):
         for j in range(L):
             g[i][j] = np.random.choice(grille[i][j]) #on choisis la graine parmi la liste
-            if g[i][j].get_quality() == 1: #il faudrait trouver un test pour determiner si la graine est issu d'autofecondation
-                g[i][j].newquality(delta) #on applique le penalité liée à l'autofecondation
     return g
 
 
