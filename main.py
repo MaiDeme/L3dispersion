@@ -32,7 +32,7 @@ def main():
                         g[i][j][0], 1-sucessBino, N, L, g_graines, delta, p_int)  # graines fixées
                     g_graines = implantation_disp(
                         g[i][j][0], N, g_graines, p_ext)  # graines dispersées
-        #g_graines = selection(g_graines)
+        g_graines = selection(g_graines)
         print(g_graines)
         i += 1
 

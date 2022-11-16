@@ -29,16 +29,15 @@ def selection(grille):
     ouput: g la grille avec les instances de plantes qui ont poussées
 
     """
-    L = grille.size
-    g = grille_vide
+    L = np.size(grille,0)
+    g = np.empty((L, L),dtype=list)
     for i in range(L):
         for j in range(L):
             # on choisis la graine parmi la liste
             if grille[i][j] != []:
-                g[i][j] = np.random.choice(grille[i][j])
+                g[i][j] = [np.random.choice(grille[i][j])]
             else:
-                g[i][j]=[]
-
+                g[i][j] = []
     return g
 
 
@@ -51,7 +50,7 @@ def reproduction_plante(plante, N):
     return
     le nombre de graines dispersées
     '''
-    disp_seed = rd.binomial(N, plante.get_alpha(),)
+    disp_seed = rd.binomial(N, plante.get_alpha())
     return disp_seed
 
 
