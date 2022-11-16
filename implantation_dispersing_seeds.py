@@ -8,7 +8,7 @@ def implantation_disp(g,alpha,N,proba_installation):
     produit une grille intermédiaire vide 
     remplie la grille avec les graines dispersées implantées.
     paramètres:
-    g : une grille de taille L*L contenant les plantes gen(n-1)
+    g : un numpy de taille L*L contenant les plantes gen(n-1)
     alpha : proportion de graines dispersées
     N: nombre de graines par plantes
     proba_installation: valeur de la proba de s'installer 
@@ -19,7 +19,7 @@ def implantation_disp(g,alpha,N,proba_installation):
     """  
     #créer un tableau de list L*L.
     inte_grille=[]
-    for i in np.arange(len(g)):
+    for i in np.arange(g.size()):
         x=[[]]
         j=0
         while j<(L-1):
@@ -30,8 +30,8 @@ def implantation_disp(g,alpha,N,proba_installation):
 
     #compte le nombre de plantes sur la grille 
     nb_plante=0  
-    for i in np.arange(len(g)):
-        for j in np.arange(len(g)):
+    for i in np.arange(g.size()):
+        for j in np.arange(g.size()):
             if g[i][j]!=[]:
                 nb_plante+=1
 
