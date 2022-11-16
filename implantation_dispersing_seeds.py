@@ -22,7 +22,7 @@ def implantation_disp(g,alpha,N,proba_installation):
     for i in np.arange(g.size()):
         x=[[]]
         j=0
-        while j<(L-1):
+        while j<(g.size()-1):
             x.append([])
             j+=1
         inte_grille.append(x) 
@@ -36,7 +36,7 @@ def implantation_disp(g,alpha,N,proba_installation):
                 nb_plante+=1
 
     nb_g=int(nb_plante*alpha*N)# le nombre total de graines dispersées 
-
+    
     for i in np.arange(nb_g): #boucle qui modélise la dispersion pour chaque graine
         x= random.randint(0, L-1) #choisis aléatoirement une ligne sur la grille
         y= random.randint(0, L-1) #choisis aléatoirement une colonne sur la grille
