@@ -16,6 +16,12 @@ class plants:
         self.position = position
         self.alpha = alpha
 
+    def __str__(self):
+        return f'plante({self.quality},{self.position},{self.alpha})'
+
+    def __repr__(self):
+        return f'plante({self.quality},{self.position},{self.alpha})'
+
     def get_position(self):
         return self.position
 
