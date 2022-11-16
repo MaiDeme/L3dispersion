@@ -52,7 +52,7 @@ def generate_grille(L):
     return grille
 
 
-def selection(grille, delta):
+def selection(grille):
     """
     selection dans chaque cases parmi la liste des graines cell qui va pousser et donner une plante
     input: grille, la grille qui contient les listes des graines DEJA implanter

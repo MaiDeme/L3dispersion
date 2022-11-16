@@ -23,12 +23,15 @@ def main():
         #dispersion (pour l'instant juste les graines dispersées) +implantation
         g2=implantation_disp(L,g2,alpha,p_ext,N)
         #donc la on a la grille avec les graines dipersées ET implantés
-
+        g3=np.empty((L,L))
         #dispersion graines fixées
+        g=np.empty((L,L))
+        for i in range (L):
+            for j in range(L):
+                g[i][j]=g2[i][j]+g3[i][j]  #on concatène les listes
+                
 
-        #
-
-    g=selection(g1,delta)
+   g=selection(g)
 
     return g
 
