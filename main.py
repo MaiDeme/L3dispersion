@@ -10,17 +10,18 @@ from fonction import *
 
 
 def main():
-    d = 1  # le nombre de générations
-    i = 0
+    d = 10  # le nombre de générations
+    k = 0
     alpha = 0  # proportions de graines dispersées
-    N = 3  # nombre de graines
-    L = 5  # taille du maillage
+    N = 5  # nombre de graines
+    L = 100  # taille du maillage
     delta = 0
     p_ext = 0.2
     p_int = 0.2
+    density=[]
     # on genere la grille de départ remplie des plantes de quality 1 avec alpha fixé
     g = generate_grille(L, alpha)
-    while i <= d:  # condition fixée pour l'instant les générations
+    while k <= d:  # condition fixée pour l'instant les générations
         # on genere  une grille vide pour y mettre les graines
         g_graines = grille_vide(L)
         # graines dispersées + implantation
@@ -32,11 +33,12 @@ def main():
                         g[i][j][0], 1-sucessBino, N, L, g_graines, delta, p_int)  # graines fixées
                     g_graines = implantation_disp(
                         g[i][j][0], N, g_graines, p_ext)  # graines dispersées
-        g_graines = selection(g_graines)
-        print(g_graines)
-        i += 1
-
-    return g
+        g_plantes,nb_plt = selection(g_graines)
+        k += 1
+        density.append(nb_plt/(L*L)) #on calcule la densité des plantes dans la grille
+        
+    print(density)
+    return density
 
 main()
 

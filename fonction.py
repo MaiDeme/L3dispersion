@@ -25,10 +25,12 @@ def generate_grille(L, alpha):
 def selection(grille):
     """
     selection dans chaque cases parmi la liste des graines cell qui va pousser et donner une plante
+    compte aussi le nombre de plantes
     input: grille, la grille qui contient les listes des graines DEJA implanter
-    ouput: g la grille avec les instances de plantes qui ont poussées
+    ouput: g la grille avec les instances de plantes qui ont poussées et le nb de plantes
 
     """
+    nb=0
     L = np.size(grille,0)
     g = np.empty((L, L),dtype=list)
     for i in range(L):
@@ -36,9 +38,10 @@ def selection(grille):
             # on choisis la graine parmi la liste
             if grille[i][j] != []:
                 g[i][j] = [np.random.choice(grille[i][j])]
+                nb+=1
             else:
                 g[i][j] = []
-    return g
+    return g,nb
 
 
 def reproduction_plante(plante, N):
