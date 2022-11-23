@@ -10,7 +10,7 @@ from fonction import *
 
 
 def main():
-    d = 10  # le nombre de générations
+    d = 100 # pour limiter le nombre de générations
     k = 0
     alpha = 0  # proportions de graines dispersées
     N = 5  # nombre de graines
@@ -19,9 +19,10 @@ def main():
     p_ext = 0.2
     p_int = 0.2
     density=[]
+    T=0
     # on genere la grille de départ remplie des plantes de quality 1 avec alpha fixé
     g = generate_grille(L, alpha)
-    while k <= d:  # condition fixée pour l'instant les générations
+    while k <= d and density !=0:  # condition fixée pour l'instant les générations
         # on genere  une grille vide pour y mettre les graines
         g_graines = grille_vide(L)
         # graines dispersées + implantation
@@ -34,11 +35,12 @@ def main():
                     g_graines = implantation_disp(
                         g[i][j][0], N, g_graines, p_ext)  # graines dispersées
         g_plantes,nb_plt = selection(g_graines)
+        T=k  #le temps d'extinction 
         k += 1
         density.append(nb_plt/(L*L)) #on calcule la densité des plantes dans la grille
         
-    print(density)
-    return density
+    print(density,T)
+    return density,T
 
 main()
 
