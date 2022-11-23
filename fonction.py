@@ -75,8 +75,10 @@ def implantation_disp(plante, N, inte_grille, p_ext,sigma):
         # choisis aléatoirement une colonne sur la grille
         y = random.randint(0, len(inte_grille)-1)
         # simule la proba de s'installer sur une case
-        new_p_ext = random.uniform(p_ext-sigma,p_ext+sigma)
-        j = rd.binomial(1, new_p_ext)
+        if sigma <min([p_ext,1-p_ext]):
+            p_ext = random.uniform(p_ext-sigma,p_ext+sigma)
+            
+        j = rd.binomial(1, p_ext)
 
         if j == 1:
             # si la graine s'installe alors on place une instance dela class plants dans la case correspondante, il peut y avoir plusieurs plantes sur une case

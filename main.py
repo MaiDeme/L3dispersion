@@ -17,7 +17,7 @@ def main():
     L = 100  # taille du maillage
     delta = 0
     p_ext = 0.2
-    sigma = 0.5
+    sigma = 0.9
     p_int = 0.2
     density=[]
     T=0
