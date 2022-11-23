@@ -57,10 +57,11 @@ def reproduction_plante(plante, N):
     return disp_seed
 
 
-def implantation_disp(plante, N, inte_grille, p_ext,sigma):
+def implantation_disp(sucessBino,plante, N, inte_grille, p_ext,sigma):
     """
     remplie la grille intermédiaire avec les graines dispersées implantées d'une plante.
     paramètres:
+    sucessBino = nombre de graines dispersées par plante
     plante = la plante mère
     N = nombre de graines totales par plantes
     inte_grille = grille intermédiaire
@@ -69,7 +70,7 @@ def implantation_disp(plante, N, inte_grille, p_ext,sigma):
     return:
     la grille remplie des plantes (dispersées) implantées pour une seule plantes
     """
-    for i in np.arange(reproduction_plante(plante, N)):  # boucle qui modélise la dispersion pour chaque graine
+    for i in np.arange(sucessBino):  # boucle qui modélise la dispersion pour chaque graine
         # choisis aléatoirement une ligne sur la grille
         x = random.randint(0, len(inte_grille)-1)
         # choisis aléatoirement une colonne sur la grille
