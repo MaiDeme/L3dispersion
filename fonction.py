@@ -57,7 +57,7 @@ def reproduction_plante(plante, N):
     return disp_seed
 
 
-def implantation_disp(plante, N, inte_grille, p_ext):
+def implantation_disp(plante, N, inte_grille, p_ext,sigma):
     """
     remplie la grille intermédiaire avec les graines dispersées implantées d'une plante.
     paramètres:
@@ -75,7 +75,8 @@ def implantation_disp(plante, N, inte_grille, p_ext):
         # choisis aléatoirement une colonne sur la grille
         y = random.randint(0, len(inte_grille)-1)
         # simule la proba de s'installer sur une case
-        j = rd.binomial(1, p_ext)
+        new_p_ext = random.uniform(p_ext-sigma,p_ext+sigma)
+        j = rd.binomial(1, new_p_ext)
 
         if j == 1:
             # si la graine s'installe alors on place une instance dela class plants dans la case correspondante, il peut y avoir plusieurs plantes sur une case

@@ -17,6 +17,7 @@ def main():
     L = 100  # taille du maillage
     delta = 0
     p_ext = 0.2
+    sigma = 0.5
     p_int = 0.2
     density=[]
     T=0
@@ -33,7 +34,7 @@ def main():
                     g_graines = dispersandimplementation_fixes(
                         g[i][j][0], 1-sucessBino, N, L, g_graines, delta, p_int)  # graines fixées
                     g_graines = implantation_disp(
-                        g[i][j][0], N, g_graines, p_ext)  # graines dispersées
+                        g[i][j][0], N, g_graines, p_ext,sigma)  # graines dispersées
         g_plantes,nb_plt = selection(g_graines)
         T=k  #le temps d'extinction 
         k += 1
