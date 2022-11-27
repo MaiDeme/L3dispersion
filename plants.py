@@ -20,7 +20,7 @@ class plants:
         return f'plante({self.quality},{self.position},{self.alpha})'
 
     def __repr__(self):
-        return f'plante({self.quality},{self.position},{self.alpha})'
+        return f'p({self.quality},{self.position},{self.alpha})'
 
     def get_position(self):
         return self.position

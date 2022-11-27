@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from math import sqrt
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import colors as c
@@ -10,19 +10,29 @@ import numpy.random as rd
 
 def generate_grille(L, alpha):
     """
-    fonction qui génère un np.array à deux dimensions rempli des objects 'plants'
-    input: L, la longueur voulue
-    output: grille, le np.array rempli
+    fonction qui génère un np.array à une dimension rempli des objects 'plants'
+    input: L, la longueur voulue de la grille des plantes
+    output: grille, le np.array rempli de L*L élements
     """
-    grille = np.ndarray((L, L), dtype=list)
+    size = L**2
+    grille = []
     for i in range(L):
         for j in range(L):
-            grille[i, j] = [plants(1, (i, j), alpha)]
-    # grille=np.random.randint(2, size=(L,L))   #la ligne pour générer une grille random
+            grille.append(plants(1, (i, j), alpha))
     return grille
 
+def liste_vide(L):
+    """
+    créer un tableau L**2 de liste vide.
+    return
+    la grille vide
+    """
+    grille=[]
+    for i in range(L**2):
+        grille.append([])
+    return grille
 
-def selection(grille):
+def selection(grille,L):
     """
     selection dans chaque cases parmi la liste des graines cell qui va pousser et donner une plante
     compte aussi le nombre de plantes
@@ -31,17 +41,22 @@ def selection(grille):
 
     """
     nb=0
-    L = np.size(grille,0)
-    g = np.empty((L, L),dtype=list)
-    for i in range(L):
-        for j in range(L):
-            # on choisis la graine parmi la liste
-            if len(grille[i][j]) >1:
-                g[i][j] = [np.random.choice(grille[i][j])]
+
+    res= liste_vide(L)
+    resfinal=[]
+    for P in grille:
+    
+        # on choisis la graine parmi la liste
+        coord=P.get_position()
+        res[coord[0]*L+coord[1]].append(P)
+    for i in res:
+        if len(i) >1:
+                resfinal.append(np.random.choice(i))
                 nb+=1
-            else:
-                g[i][j] = []
-    return g,nb
+        elif len(i)==1:
+            resfinal.append(i[0])
+            nb+=1
+    return resfinal,nb
 
 
 def reproduction_plante(plante, N):
@@ -57,77 +72,46 @@ def reproduction_plante(plante, N):
     return disp_seed
 
 
-def implantation_disp(sucessBino,plante, N, inte_grille, p_ext,sigma):
+def implantation_disp(sucessBino, plante, L, p_ext, sigma):
     """
-    remplie la grille intermédiaire avec les graines dispersées implantées d'une plante.
+    remplie une liste avec les graines dispersées implantées d'une plante.
     paramètres:
     sucessBino = nombre de graines dispersées par plante
     plante = la plante mère
-    N = nombre de graines totales par plantes
-    inte_grille = grille intermédiaire
+    L = nombre de lignes de la grille initiale
     p_ext: valeur de la proba de s'installer 
 
     return:
-    la grille remplie des plantes (dispersées) implantées pour une seule plantes
+    la liste remplie des plantes (dispersées) implantées pour une seule plantes
     """
-    for i in np.arange(sucessBino):  # boucle qui modélise la dispersion pour chaque graine
+    resultat = []
+    # boucle qui modélise la dispersion pour chaque graine
+    for i in np.arange(sucessBino):
         # choisis aléatoirement une ligne sur la grille
-        x = random.randint(0, len(inte_grille)-1)
+        x = random.randint(0, L-1)
         # choisis aléatoirement une colonne sur la grille
-        y = random.randint(0, len(inte_grille)-1)
+        y = random.randint(0, L-1)
         # simule la proba de s'installer sur une case
-        if sigma <min([p_ext,1-p_ext]):
-            p_ext = random.uniform(p_ext-sigma,p_ext+sigma)
-            
-        j = rd.binomial(1, p_ext)
+    
+        real_p_ext = random.uniform(p_ext-sigma, p_ext+sigma)
+        j = rd.binomial(1, real_p_ext)
 
         if j == 1:
-            # si la graine s'installe alors on place une instance dela class plants dans la case correspondante, il peut y avoir plusieurs plantes sur une case
-            inte_grille[x][y].append(plants(1, [x, y], plante.get_alpha))
+            # si la graine s'installe alors on place une instance de la class plants dans la liste de résultat, il peut y avoir plusieurs plantes avec les même coordonées
+            resultat.append(plants(1, [x, y], plante.get_alpha))
 
-    return inte_grille
-
-
-def grille_vide(L):
-    """
-    créer un tableau LxL de liste vide.
-    parametre
-    L la taille du tableau LxL
-    return
-    la grille intermédiaire
-    """
-    grille = np.ndarray((L, L), dtype=list)
-    for i in range(L):
-        for j in range(L):
-            grille[i, j] = []
-    return grille
+    return resultat
 
 
-def nb_plants(g):
-    '''
-    compte le nombre de plantes sur la grille
-    parametre
-    grille= numpy array 2d de listes de plantes
-    return
-    le nombre de plants
-    '''
-    # compte le nombre de plantes sur la grille
-    nb_plants = 0
-    for i in np.arange(np.size(g, 0)):
-        for j in np.arange(np.size(g, 0)):
-            if g[i][j] != []:
-                nb_plants += 1
-    return nb_plants
-
-
-def dispersandimplementation_fixes(planteM, succesBino, N, L, grilleD, delta, p_int):
+def dispersandimplementation_fixes(planteM, succesBino, N, L, delta, p_int):
     '''
     input: N nombre de descendants par plante
     L longueur d'un cote de la grille
     pint la probabilité d'établissement des graines fixées
     '''
-    if (0 < planteM.get_position()[0] < L-1 and 0 < planteM.get_position()[1] < L-1):
-        for i in range(0, N-succesBino, 1):
+    resultat=[]
+    if (0 < planteM.get_position()[0] < L-1 and 0 < planteM.get_position()[1] < L-1):  #si on est au milieu de la grille
+        for i in range(0, N-succesBino, 1): #boucle sur le nombre de graines fixées
             x = planteM.get_position()[0] + \
                 np.random.choice(np.array([-1, 0, 1]))
             y = planteM.get_position()[1] + \
@@ -137,9 +121,8 @@ def dispersandimplementation_fixes(planteM, succesBino, N, L, grilleD, delta, p_
                             x, y], planteM.get_alpha())
 
             if (rd.binomial(1, p_int*graine.get_quality()) == 1):
-                grilleD[graine.get_position()[0], graine.get_position()
-                        [1]].append(graine)
-    else:
+                resultat.append(graine)
+    else: # test si on est au bord de la grille
         for i in range(0, N-succesBino, 1):
             xfinal = planteM.get_position()[0]
             yfinal = planteM.get_position()[1]
@@ -152,7 +135,7 @@ def dispersandimplementation_fixes(planteM, succesBino, N, L, grilleD, delta, p_
 
             if (planteM.get_position()[1] == 0):
                 yfinal += np.random.choice(np.array([0, 1]))
-
+            
             elif (planteM.get_position()[1] == L-1):
                 yfinal += np.random.choice(np.array([-1, 0]))
 
@@ -160,6 +143,5 @@ def dispersandimplementation_fixes(planteM, succesBino, N, L, grilleD, delta, p_
             graine = plants(planteM.get_quality(), [
                             xfinal, yfinal], planteM.get_alpha())
             if (rd.binomial(1, p_int*graine.get_quality()) == 1):
-                grilleD[xfinal, yfinal].append(graine)
-
-    return grilleD
+                resultat.append(graine)
+    return resultat

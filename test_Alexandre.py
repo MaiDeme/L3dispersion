@@ -8,3 +8,10 @@ print(p_ext)
 x=min([10,5])
 print(x)
 # test sélection
+x=[5]
+y=[7,1]
+
+print(x+y)
+
+sucessBino = rd.binomial(10, 0)
+print(sucessBino)
