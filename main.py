@@ -1,29 +1,33 @@
 # -*- coding: utf-8 -*-
 
-from math import *
-from random import *
+#from math import *
+#from random import *
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import colors as c
 from plants import plants
 from fonction import *
+import csv
 
 
-def main():
-    d = 100 # pour limiter le nombre de générations
+def main(d,alpha,N,L,delta,sigma,p_int):
+    """
+    #param
+    d pour limiter le nb de generation
+    alpha la proportion de graine dispersées
+    N nb de graines
+    L taille du maillage
+    delta
+    p_int
+
+    """
     k = 0
-    alpha = 0  # proportions de graines dispersées
-    N = 5  # nombre de graines
-    L = 100  # taille du maillage
-    delta = 0
-    p_ext = 0.2
-    sigma = 0.9
-    p_int = 0.2
-    density=[]
+    p_ext =p_int
+    density=[1]
     T=0
     # on genere la grille de départ remplie des plantes de quality 1 avec alpha fixé
     g = generate_grille(L, alpha)
-    while k <= d and density !=0:  # condition fixée pour l'instant les générations
+    while k < d and density !=0:  # condition fixée pour l'instant les générations
         # on genere  une grille vide pour y mettre les graines
         g_graines = grille_vide(L)
         # graines dispersées + implantation
@@ -39,11 +43,20 @@ def main():
         T=k  #le temps d'extinction 
         k += 1
         density.append(nb_plt/(L*L)) #on calcule la densité des plantes dans la grille
-        
-    print(density,T)
+           
     return density,T
 
-main()
+with open (f'data_simulation_N100_alpha0_L50.csv','w',newline='') as file:
+    writer=csv.writer(file)
+    writer.writerow(['simulation','generation','rho','p_int'])
+    param=[[100,0,5,50,0,0.25,0.5],[100,0,5,50,0,0.25,0.9]]
+    for i in range(len(param)):
+        density,T=main(param[i][0],param[i][1],param[i][2],param[i][3],param[i][4],param[i][5],param[i][6]) 
+        for j in range(np.size(density)):          
+            writer.writerow([i+1,j,density[j],param[i][6]])
+
+
+
 
 
 
