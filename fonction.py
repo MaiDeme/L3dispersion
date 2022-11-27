@@ -36,7 +36,7 @@ def selection(grille):
     for i in range(L):
         for j in range(L):
             # on choisis la graine parmi la liste
-            if grille[i][j] != []:
+            if len(grille[i][j]) >1:
                 g[i][j] = [np.random.choice(grille[i][j])]
                 nb+=1
             else:
