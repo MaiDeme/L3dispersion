@@ -46,7 +46,7 @@ def main(d,alpha,N,L,delta,sigma,p_int):
            
     return density,T
 
-with open (f'data_simulation_N100_alpha0_L50.csv','w',newline='') as file:
+with open (f'data/data_simulation_N100_alpha0_L50.csv','w',newline='') as file:
     writer=csv.writer(file)
     writer.writerow(['simulation','generation','rho','p_int'])
     param=[[100,0,5,50,0,0.25,0.5],[100,0,5,50,0,0.25,0.9]]
