@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import colors as c
 from plants import plants
 from fonction import *
 import csv
-
 
 def main(d,alpha,N,L,delta,sigma,p_int):
     """
@@ -43,17 +41,18 @@ def main(d,alpha,N,L,delta,sigma,p_int):
 
     return density,T
 
-with open (f'data/data_simulationd10_N5_alpha0.5_L5.csv','w',newline='') as file:
-    writer=csv.writer(file)
-    writer.writerow(['simulation','generation','rho','p_int'])
-    param=[[1000,0.5,5,8,0.05,0.25,0.25]]
-    for i in range(len(param)):
-        density,T=main(param[i][0],param[i][1],param[i][2],param[i][3],param[i][4],param[i][5],param[i][6]) 
-        for j in range(np.size(density)):          
-            writer.writerow([i+1,j,density[j],param[i][6]])
-
-
-
-
-
-
+simulation=20
+with open (f'data/sim_gen10_N5_alpha0_L10.csv','w',newline='') as file1, open (f'data/figure3alpha0delta0.csv','w',newline='') as file2:
+    writer1=csv.writer(file1)
+    writer2=csv.writer(file2)
+    writer1.writerow(['simulation','generation','rho','p_int'])
+    writer2.writerow(['p_int','density'])
+    param=[[1000,0,5,100,0,0.25,i] for i in np.linspace(0,1,num=10)]
+    for i,ai in enumerate(param):
+        m=np.zeros(simulation)
+        for k in range(simulation):
+            density,T=main(ai[0],ai[1],ai[2],ai[3],ai[4],ai[5],ai[6])
+            for j in range(np.size(density)):          
+                writer1.writerow([k+1,j,density[j],ai[6]])
+                m[k]=(np.mean(density[int(np.size(density)/2):np.size(density)]))
+        writer2.writerow([[ai[6]],np.mean(m)])

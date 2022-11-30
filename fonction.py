@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from math import sqrt
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib import colors as c
 from plants import plants
 import random
 import numpy.random as rd
