@@ -98,7 +98,7 @@ def implantation_disp(sucessBino, plante, L, p_ext, sigma):
 
         if j == 1:
             # si la graine s'installe alors on place une instance de la class plants dans la liste de résultat, il peut y avoir plusieurs plantes avec les même coordonées
-            resultat.append(plants(1, [x, y], plante.get_alpha))
+            resultat.append(plants(1, [x, y], plante.get_alpha()))
 
     return resultat
 

@@ -43,10 +43,10 @@ def main(d,alpha,N,L,delta,sigma,p_int):
 
     return density,T
 
-with open (f'data/data_simulation_N100_alpha0_L50.csv','w',newline='') as file:
+with open (f'data/data_simulationd10_N5_alpha0.5_L5.csv','w',newline='') as file:
     writer=csv.writer(file)
     writer.writerow(['simulation','generation','rho','p_int'])
-    param=[[100000,0.5,5,32,0.05,0.25,0.25]]
+    param=[[1000,0.5,5,8,0.05,0.25,0.25]]
     for i in range(len(param)):
         density,T=main(param[i][0],param[i][1],param[i][2],param[i][3],param[i][4],param[i][5],param[i][6]) 
         for j in range(np.size(density)):          
