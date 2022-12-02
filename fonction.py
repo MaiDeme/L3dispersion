@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from math import sqrt
-import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib import colors as c
 from plants import plants
 import random
 import numpy.random as rd
@@ -98,7 +96,7 @@ def implantation_disp(sucessBino, plante, L, p_ext, sigma):
 
         if j == 1:
             # si la graine s'installe alors on place une instance de la class plants dans la liste de résultat, il peut y avoir plusieurs plantes avec les même coordonées
-            resultat.append(plants(1, [x, y], plante.get_alpha))
+            resultat.append(plants(1, [x, y], plante.get_alpha()))
 
     return resultat
 
