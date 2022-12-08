@@ -84,18 +84,18 @@ def implantation_disp(sucessBino, plante, L, p_ext, sigma):
     """
     resultat = []
     # boucle qui modélise la dispersion pour chaque graine
-    for i in np.arange(sucessBino):
+    for i in range(1,sucessBino+1):
         # choisis aléatoirement une ligne sur la grille
         x = random.randint(0, L-1)
         # choisis aléatoirement une colonne sur la grille
         y = random.randint(0, L-1)
-        # simule la proba de s'installer sur une case
-    
+
+        # simule la proba de s'installer sur une case    
         real_p_ext = random.uniform(p_ext-sigma, p_ext+sigma)
         j = rd.binomial(1, real_p_ext)
 
         if j == 1:
-            # si la graine s'installe alors on place une instance de la class plants dans la liste de résultat, il peut y avoir plusieurs plantes avec les même coordonées
+            # si la graine s'installe alors on place une instance de la class plants dans la liste de résultat, il peut y avoir plusieurs plantes avec les même coordonnées
             resultat.append(plants(1, [x, y], plante.get_alpha()))
 
     return resultat
