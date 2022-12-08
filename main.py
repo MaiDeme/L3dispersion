@@ -63,7 +63,7 @@ def modelfigure11():
                         m[k]=(np.mean(density[int(np.size(density)/2):np.size(density)]))
             writer2.writerow([ai[6],np.mean(m)])
 
-def modelfigure12():
+def modelfigure12():  #jsp comment faire
     simulation=1
     param=[[100,1,5,100,0,0.25,i] for i in np.linspace(0,1,num=10)]
     with open (f'data/figure1/sim1_gen100_N5_alpha1_L100.csv','w',newline='') as file1, open (f'data/figure1/figure12.csv','w',newline='') as file2:
@@ -161,4 +161,4 @@ def modelfigure32():
                 writer2.writerow([ai[1],np.mean(m),j])  #on prend la moyenne des T
 
 
-modelfigure31()
+modelfigure2()
