@@ -32,7 +32,7 @@ class plants:
         return self.quality
 
     def newquality(self, delta):
-        self.quality = (1-delta)*self.quality
+        self.quality = self.quality*(1-delta)
 
     def newposition(self, newposition):
         self.position = newposition
