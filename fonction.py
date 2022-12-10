@@ -70,7 +70,7 @@ def reproduction_plante(plante, N):
     return disp_seed
 
 
-def implantation_disp(sucessBino, plante, L, p_ext, sigma):
+def implantation_disp(sucessBino, plante, L, real_p_ext, sigma):
     """
     remplie une liste avec les graines dispersées implantées d'une plante.
     paramètres:
@@ -84,14 +84,13 @@ def implantation_disp(sucessBino, plante, L, p_ext, sigma):
     """
     resultat = []
     # boucle qui modélise la dispersion pour chaque graine
-    for i in range(1,sucessBino+1):
+    for i in range(sucessBino):
         # choisis aléatoirement une ligne sur la grille
         x = random.randint(0, L-1)
         # choisis aléatoirement une colonne sur la grille
         y = random.randint(0, L-1)
 
         # simule la proba de s'installer sur une case    
-        real_p_ext = random.uniform(p_ext-sigma, p_ext+sigma)
         j = rd.binomial(1, real_p_ext)
 
         if j == 1:
@@ -101,7 +100,7 @@ def implantation_disp(sucessBino, plante, L, p_ext, sigma):
     return resultat
 
 
-def dispersandimplementation_fixes(planteM, succesBino, N, L, delta, p_int):
+def dispersandimplementation_fixes(planteM, succesBino, L, delta, p_int):
     '''
     input: N nombre de descendants par plante
     L longueur d'un cote de la grille
@@ -109,19 +108,18 @@ def dispersandimplementation_fixes(planteM, succesBino, N, L, delta, p_int):
     '''
     resultat=[]
     if (0 < planteM.get_position()[0] < L-1 and 0 < planteM.get_position()[1] < L-1):  #si on est au milieu de la grille
-        for i in range(0, N-succesBino, 1): #boucle sur le nombre de graines fixées
+        for i in range(succesBino): #boucle sur le nombre de graines fixées
             x = planteM.get_position()[0] + \
                 np.random.choice(np.array([-1, 0, 1]))
             y = planteM.get_position()[1] + \
                 np.random.choice(np.array([-1, 0, 1]))
-            planteM.newquality(delta)
             graine = plants(planteM.get_quality(), [
                             x, y], planteM.get_alpha())
-
+            graine.newquality(delta)
             if (rd.binomial(1, p_int*graine.get_quality()) == 1):
                 resultat.append(graine)
     else: # test si on est au bord de la grille
-        for i in range(0, N-succesBino, 1):
+        for i in range(succesBino):
             xfinal = planteM.get_position()[0]
             yfinal = planteM.get_position()[1]
 
@@ -136,10 +134,10 @@ def dispersandimplementation_fixes(planteM, succesBino, N, L, delta, p_int):
             
             elif (planteM.get_position()[1] == L-1):
                 yfinal += np.random.choice(np.array([-1, 0]))
-
-            planteM.newquality(delta)
+            
             graine = plants(planteM.get_quality(), [
                             xfinal, yfinal], planteM.get_alpha())
+            graine.newquality(delta)
             if (rd.binomial(1, p_int*graine.get_quality()) == 1):
                 resultat.append(graine)
     return resultat
