@@ -29,19 +29,19 @@ def main(genmax, alpha, N, L, delta, sigma, p_int):
     while gen < genmax and density[-1] != 0:
         graine = []
         real_p_ext = random.uniform(p_ext-sigma, p_ext+sigma)
-        #on fait une boucle sur toute les plantes
+        # on fait une boucle sur toute les plantes
         for i in g:
             # nb de graines qui seront dispersées/plantes
             sucessBino = rd.binomial(N, alpha)
-            
+
             g_graines1 = dispersandimplementation_fixes(
-                i,N-sucessBino, L, delta, p_int)  # graines non dispersées
+                i, N-sucessBino, L, delta, p_int)  # graines non dispersées
 
             g_graines2 = implantation_disp(
-                sucessBino, i, L,real_p_ext, sigma)  # graines dispersées
+                sucessBino, i, L, real_p_ext, sigma)  # graines dispersées
 
             graine += g_graines1+g_graines2
-            
+
         g, nb_plt = selection(graine, L)
         T = gen  # le temps d'extinction
         gen += 1
@@ -53,8 +53,9 @@ def main(genmax, alpha, N, L, delta, sigma, p_int):
 
 def modelfigure11():
     simulation = 1
-    param = [[100, 0, 5, 100, 0, 0.25, i] for i in np.linspace(0, 1, num=10)]
-    with open(f'data/figure1/sim1_gen100_N5_alpha0_L100.csv', 'w', newline='') as file1, open(f'data/figure1/figure11delta0.csv', 'w', newline='') as file2:
+    d,N,L,delta,sigma= 100, 5,100, 0.05, 0.25
+    param = [[d, 0, N, L, delta, sigma, i] for i in np.linspace(0, 1, num=10)]
+    with open(f'data/figure1.1/sim{simulation}_gen{d}_N{N}_L{L}.csv', 'w', newline='') as file1, open(f'data/figure1.1/figsim{simulation}_gen{d}_N{N}L{L}.csv', 'w', newline='') as file2:
 
         # lignes pour écrire dans un fichier
         writer1 = csv.writer(file1)  # les données brutes
@@ -142,53 +143,59 @@ def modelfigure2():
 
 def modelfigure31():
     simulation = 10
-    d, N, delta, sigma, p_int = 1000, 5, 0.05, 0.25, 0.25
-    # for k in 2**np.arange(2,2,1): #la taille de la grille
-    param = [[d, i, N, 16, delta, sigma, p_int]
-             for i in np.linspace(0, 1, num=10)]
-    with open(f'data/figure3/1sim{simulation}_gen{d}_N{N}_pint{p_int}.csv', 'w', newline='') as file1, open(f'data/figure3/figure1sim{simulation}_gen{d}_N{N}_pint{p_int}.csv', 'w', newline='') as file2:
+    d, N, delta, sigma, p_int = 10000, 5, 0.05, 0.25, 0.25
+    for k in 2**np.arange(3, 7, 1):  # les différentes taille de la grille
+        param = [[d, i, N, k, delta, sigma, p_int]
+                 for i in np.linspace(0, 1, num=10)]  #les différentes valeurs de alpha
+        with open(f'data/figure3.1/sim{simulation}_gen{d}_N{N}_pint{p_int}_L{k}.csv', 'w', newline='') as file1, open(f'data/figure3.1/figsim{simulation}_gen{d}_N{N}_pint{p_int}_L{k}.csv', 'w', newline='') as file2:
 
-        # lignes pour écrire dans un fichier
-        writer1 = csv.writer(file1)  # les données brutes
-        # on stocke les points pour le graph dans ce fichier
-        writer2 = csv.writer(file2)
-        writer1.writerow(['simulation', 'generation', 'rho', 'alpha'])
-        writer2.writerow(['alpha', 'T', 'L'])
+            # lignes pour écrire dans un fichier
+            writer1 = csv.writer(file1)  # les données brutes
+            # on stocke les points pour le graph dans ce fichier
+            writer2 = csv.writer(file2)
+            writer1.writerow(['simulation', 'generation', 'rho', 'alpha'])
+            writer2.writerow(['alpha', 'T', 'L'])
 
-        for ai in param:
-            m = np.zeros(simulation)  # pour stocker les T
-            for k in range(simulation):
-                density, T = main(ai[0], ai[1], ai[2],
-                                  ai[3], ai[4], ai[5], ai[6])
-                for j in range(np.size(density)):
-                    writer1.writerow([k+1, j, density[j], ai[1]])
-                    m[k] = T  # on stocke les T sur toutes les simulations
-            # on prend la moyenne des T
-            writer2.writerow([ai[1], np.mean(m), ai[3]])
+            for ai in param:
+                m = np.zeros(simulation)  # pour stocker les T
+                for k in range(simulation):
+                    density, T = main(ai[0], ai[1], ai[2],
+                                      ai[3], ai[4], ai[5], ai[6])
+                    for j in range(np.size(density)):
+                        writer1.writerow([k+1, j, density[j], ai[1]])
+                        m[k] = T  # on stocke les T sur toutes les simulations
+                # on prend la moyenne des T
+                writer2.writerow([ai[1], np.mean(m), ai[3]])
 
 
 def modelfigure32():
     simulation = 20
-    d, N, delta, sigma, p_int = 100, 5, 0.05, 0.25, 0.25
-    param = [[d, 0, N, i, delta, sigma, p_int]
-             for i in [2,10,50,100,200]]
-    with open(f'data/figure3/2sim{simulation}_gen{d}_N{N}_pint{p_int}.csv', 'w', newline='') as file1, open(f'data/figure3/figure2sim{simulation}_gen{d}_N{N}_pint{p_int}.csv', 'w', newline='') as file2:
+    d, N, delta, sigma, p_int = 1000, 5, 0.05, 0.25, 0.25
+    for k in [0,0.25,0.5,0.75,1]:  # les valeurs de alpha
+        param = [[d, k, N, i, delta, sigma, p_int]
+                for i in [2, 10, 50, 100]] #les différentes valeurs de L
+        with open(f'data/figure3.2/2sim{simulation}_gen{d}_N{N}_pint{p_int}_alpha{k}.csv', 'w', newline='') as file1, open(f'data/figure3.2/figure2sim{simulation}_gen{d}_N{N}_pint{p_int}_alpha{k}.csv', 'w', newline='') as file2:
 
-        # lignes pour écrire dans un fichier
-        writer1 = csv.writer(file1)  # les données brutes
-        # on stocke les points pour le graph dans ce fichier
-        writer2 = csv.writer(file2)
-        writer1.writerow(['simulation', 'generation', 'rho', 'L'])
-        writer2.writerow(['L', 'T', 'alpha'])
 
-        for ai in param:
-            m = np.zeros(simulation)  # pour stocker les T
-            for k in range(simulation):
-                density, T = main(ai[0], ai[1], ai[2],
-                                  ai[3], ai[4], ai[5], ai[6])
-                for j in range(np.size(density)):
-                    writer1.writerow([k+1, j, density[j], ai[3]])
-                    m[k] = T  # on stocke les T sur toutes les simulations
-            # on prend la moyenne des T
-            writer2.writerow([ai[3], np.mean(m), ai[1]])
-modelfigure31()
+            # lignes pour écrire dans un fichier
+            writer1 = csv.writer(file1)  # les données brutes
+            # on stocke les points pour le graph dans ce fichier
+            writer2 = csv.writer(file2)
+            writer1.writerow(['simulation', 'generation', 'rho', 'L'])
+            writer2.writerow(['L', 'T', 'alpha'])
+
+
+            for ai in param:
+                m = np.zeros(simulation)  # pour stocker les T
+                for k in range(simulation):
+                    density, T = main(ai[0], ai[1], ai[2],
+                                    ai[3], ai[4], ai[5], ai[6])
+                    for j in range(np.size(density)):
+                        writer1.writerow([k+1, j, density[j], ai[3]])
+                        m[k] = T  # on stocke les T sur toutes les simulations
+                # on prend la moyenne des T
+                writer2.writerow([ai[3], np.mean(m), ai[1]])
+
+
+#modelfigure31()
+modelfigure32()
