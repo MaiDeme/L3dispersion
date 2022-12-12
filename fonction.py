@@ -5,7 +5,6 @@ from plants import plants
 import random
 import numpy.random as rd
 
-
 def generate_grille(L, alpha):
     """
     fonction qui génère un np.array à une dimension rempli des objects 'plants'
@@ -101,7 +100,7 @@ def dispersandimplementation_fixes(planteM, succesBino, L, delta, p_int):
                 np.random.choice(np.array([-1, 0, 1]))
             graine = plants(planteM.get_quality(), [
                             x, y], planteM.get_alpha())
-            graine.newquality(delta)
+            graine.newquality(delta)    #on applique la pénalité de selfing
             if (rd.binomial(1, p_int*graine.get_quality()) == 1):
                 resultat.append(graine)
     else: # test si on est au bord de la grille
@@ -123,7 +122,7 @@ def dispersandimplementation_fixes(planteM, succesBino, L, delta, p_int):
             
             graine = plants(planteM.get_quality(), [
                             xfinal, yfinal], planteM.get_alpha())
-            graine.newquality(delta)
+            graine.newquality(delta)    #on applique la pénalité de selfing
             if (rd.binomial(1, p_int*graine.get_quality()) == 1):
-                resultat.append(graine)
+                resultat.append(graine) 
     return resultat
